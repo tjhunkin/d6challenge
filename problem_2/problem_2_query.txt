@@ -1,0 +1,1 @@
+SELECT patient_id,AVG(amount) FROM transactions WHERE cost_center_id = 2 GROUP BY patient_id

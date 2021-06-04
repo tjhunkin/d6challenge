@@ -1,0 +1,51 @@
+patients
+	id PK (12345)
+	first_name (Mary)
+	last_name (Baker)
+
+admissions
+	id PK
+	patient_id FK
+	admission_date (7/14/08)
+	discharge_date (7/17/08)
+
+address_types
+	id PK
+	name (Physical,Postal)
+
+provinces
+	id PK
+	name (Gauteng...)
+
+addresses
+	id PK
+	address_type_id FK (Physical)
+	street_pobox (617 Boeing street)
+	suburb (Elarduspark)
+	city (Pretoria)
+	province_id FK (Gauteng)
+	code 0181 (varchar to allow zeros in front)
+	is_primary
+
+patient_addresses
+	patient_id FK
+	address_id FK
+
+cost_centers
+	id PK
+	code (100)
+	name (Room & Board)
+
+items
+	id PK
+	cost_center_id FK (100 Room & Board)
+	code (2000)
+	name (Semiprv room)
+
+transactions
+    id PK
+    transaction_date
+    patient_id FK
+    cost_center_id FK (100 Room & Board)
+    item_id FK
+    amount
