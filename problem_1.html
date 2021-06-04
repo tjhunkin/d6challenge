@@ -1,0 +1,61 @@
+<!-- Type -->
+<select id="d1">
+</select>
+
+<!-- Group -->
+<select id="d2">
+</select>
+
+<!-- Items -->
+<select id="d3">
+</select>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+	$(document).ready(function() {
+
+        let url = 'problem_1.php?';
+	    let d1Element = $('#d1');
+        let d2Element = $('#d2');
+        let d3Element = $('#d3');
+        let selected;
+
+        d2Element.hide();
+        d3Element.hide();
+
+        populateSelect('problem_1.php',d1Element);
+
+        d1Element.change(function () {
+            d2Element.show();
+            d3Element.hide();
+
+            selected = this.options[this.selectedIndex].value;
+
+            removeChildElements(d2Element);
+            populateSelect(url+'type_id='+selected,d2Element);
+        });
+
+        d2Element.change(function () {
+            d3Element.show();
+            removeChildElements(d3Element);
+            populateSelect(url+'type_id='+selected+'&group_id='+this.options[this.selectedIndex].value,d3Element);
+        });
+
+        function populateSelect(resource,element) {
+            $.getJSON(resource, function (data) {
+                generateSelectOptions(element,data);
+            });
+        }
+
+        function generateSelectOptions(element,data) {
+            $.each(data, function (index, value) {
+                element.append('<option value="' + index + '">' + value + '</option>');
+            });
+        }
+
+        function removeChildElements(element) {
+            element.empty();
+        }
+
+	});
+</script>

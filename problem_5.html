@@ -1,0 +1,26 @@
+<script>
+var funcs = [];
+
+// the issue here is using a closure inside a loop as if it were copying the value of the loop's index variable
+// the anonymous function keeps a reference to i. At the time console.log gets called, the for loop has already finished, and the value of i has been set to 3.
+
+for (var i = 0; i < 3; i++) {
+    funcs[i] = function() {
+		console.log("My value: " + i); 
+	};
+}
+
+for (var j = 0; j < 3; j++) {
+    funcs[j]();
+}
+
+// the solution is to create a copy of k in an anonymous wrapper
+
+for(var k = 0; k < 3; k++) {
+
+    (function(e) {
+        console.log(e);
+    })(k);
+}
+
+</script>
